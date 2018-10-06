@@ -7,6 +7,23 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test"
   },
+  "author": "ADoyle <adoyle.h@gmail.com>",
+  "license": "Apache-2.0",
+  "homepage": "http://adoyle.me/design-grid-system/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adoyle-h/design-grid-system.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adoyle-h/design-grid-system/issues"
+  },
+  "keywords": [
+    "grid-system",
+    "grid"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
