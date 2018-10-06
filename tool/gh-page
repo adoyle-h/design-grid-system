@@ -12,11 +12,16 @@ set -o pipefail
 readonly branch=gh-pages
 readonly timestamp=$(/bin/date +"%Y%m%d_%H%M%S")
 
-npm run build
-git branch -d $branch || echo '(ignore this error)'
+if [[ -z ${SKIP_BUILD:-} ]]; then
+  rm -rf build
+  npm run build
+fi
+
+cp -f .gitignore LICENSE NOTICE README.md build/
+cd build
+git init .
+git remote add origin git@github.com:adoyle-h/design-grid-system.git
 git checkout --orphan $branch
-git reset .
-git add -f build .gitignore LICENSE NOTICE README.md
+git add -f .
 git commit -m "Github page generated at ${timestamp}"
 git push -f origin $branch
-git checkout -
