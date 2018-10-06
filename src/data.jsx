@@ -24,7 +24,7 @@ class UserData extends Component {
             m: 768,
             // Large screen / desktop
             // l : 992,
-            // l: 1056,
+            l: 1056,
             // Extra large screen / wide desktop
             xl: 1200,
             // Extra extra large

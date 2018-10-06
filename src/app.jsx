@@ -6,28 +6,16 @@ import grid from './grid';
 import Data, {Consumer} from './data';
 import Category from './category';
 import Legend from './legend';
+import Rules from './rules';
+import Intro from './intro';
+import {Section} from './styles/com';
 
 const BG = styled.div`
 `;
 
 const Info = styled.div`
     display: flex;
-`;
-
-const Section = styled.div`
-    section {
-        margin: 20px 40px;
-
-        div + div {
-            margin-top: 6px;
-        }
-    }
-
-    h2 {
-        margin: 0;
-        padding: 10px 40px;
-        width: 100%;
-    }
+    flex-wrap: wrap;
 `;
 
 const UserData = styled(Section)`
@@ -39,6 +27,22 @@ const UserData = styled(Section)`
 const LegendSection = styled(Section)`
     h2 {
         background: #c2caff;
+    }
+`;
+
+const RulesSection = styled(Section)`
+    flex: 1 1;
+
+    h2 {
+        background: #7bbcfb;
+    }
+`;
+
+const IntroSection = styled(Section)`
+    flex: 1 1 100%;
+
+    h2 {
+        background: #e1ffd0;
     }
 `;
 
@@ -59,7 +63,7 @@ class App extends Component {
             <h2>User Settings</h2>
             <section>
                 <div>Column Size: {data.column.size}</div>
-                <div>Base Space Unit: {data.basePx}px</div>
+                <div>Base Unit: {data.basePx}px</div>
                 <div>Margin/Viewport: {data.margin}</div>
             </section>
         </UserData>;
@@ -74,13 +78,19 @@ class App extends Component {
 
         return <BG>
             <Info>
+                <IntroSection>
+                    <h2>Intro</h2>
+                    <Intro />
+                </IntroSection>
                 {this.renderUserData()}
                 <LegendSection>
                     <h2>Legend</h2>
-                    <section>
-                        <Legend />
-                    </section>
+                    <section><Legend /></section>
                 </LegendSection>
+                <RulesSection>
+                    <h2>Rules</h2>
+                    <section><Rules /></section>
+                </RulesSection>
             </Info>
             {categories}
             <GUI {...data} changeData={changeData} />
