@@ -1,0 +1,20 @@
+:global(html) {
+    height: 100%;
+    box-sizing: border-box;
+    font-family: 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', '微软雅黑', Helvetica, SimSun, sans-serif;
+}
+
+:global(body) {
+    min-height: 100%;
+    height: auto;
+}
+
+:global(#root) {
+    width: 100%;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+}
