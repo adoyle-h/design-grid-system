@@ -10,6 +10,8 @@ const links = [
     ['The 8-Point Grid System', 'https://builttoadapt.io/intro-to-the-8-point-grid-system-d2573cde8632'],
 ];
 
+/* eslint-disable max-len */
+
 export default () => <BG>
     <p>
         This is a tool to preview grid system for design.
@@ -19,10 +21,14 @@ export default () => <BG>
 
     <p>
         Read these articles for reference:
-        <ul>
-            {links.map(([name, url]) => <li>
-                <a href={url}>{name}</a>
-            </li>)}
-        </ul>
+    </p>
+    <ul>
+        {links.map(([name, url]) => <li key={name}>
+            <a href={url}>{name}</a>
+        </li>)}
+    </ul>
+
+    <p>
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/adoyle-h/design-grid-system">source code</a>
     </p>
 </BG>;

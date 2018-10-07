@@ -1,7 +1,7 @@
 import React from 'react';
 import * as dg from 'dis-gui';
 
-const addEndpoint = (changeData) => (ep) => {
+const addEndpoint = (_changeData) => (_ep) => {
     // changeData(`endpoints.${ep}`);
 };
 
@@ -15,7 +15,9 @@ const renderEndpoints = (endpoints, changeData) => {
     />);
 };
 
-export default ({column, basePx, margin, endpoints, changeData}) => <dg.GUI expanded={false} >
+export default ({
+    column, basePx, margin, endpoints, changeData,
+}) => <dg.GUI expanded={false} >
     <dg.Text label="Parameters" />
     <dg.Number label="Column Size" value={column.size} onChange={(val) => changeData('column.size', val)} />
     <dg.Select
@@ -27,9 +29,11 @@ export default ({column, basePx, margin, endpoints, changeData}) => <dg.GUI expa
     <dg.Number label="Margin/Viewport" value={margin} onChange={(val) => changeData('margin', val)} />
     <dg.Folder label="Endpoints" expanded >
         {renderEndpoints(endpoints, changeData)}
+        {/*
         <dg.Button
             label="Add Endpoint"
             onClick={addEndpoint(changeData)}
         />
+        */}
     </dg.Folder>
 </dg.GUI>;

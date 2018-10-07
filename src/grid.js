@@ -1,4 +1,6 @@
-const debug = require('debug')('grid');
+import _debug from 'debug';
+
+const debug = _debug('grid');
 
 function convertPercent(num, point = 2) {
     if (Number.isInteger(num)) {

@@ -10,6 +10,8 @@ import Rules from './rules';
 import Intro from './intro';
 import {Section} from './styles/com';
 
+import './styles/global.css';
+
 const BG = styled.div`
 `;
 
@@ -43,6 +45,11 @@ const IntroSection = styled(Section)`
 
     h2 {
         background: #e1ffd0;
+
+        a {
+            text-decoration: none;
+            color: initial;
+        }
     }
 `;
 
@@ -79,7 +86,7 @@ class App extends Component {
         return <BG>
             <Info>
                 <IntroSection>
-                    <h2>Intro</h2>
+                    <h2><a href="/">Design Grid System</a></h2>
                     <Intro />
                 </IntroSection>
                 {this.renderUserData()}
@@ -100,6 +107,6 @@ class App extends Component {
 
 export default () => <Data>
     <Consumer>
-        {({data, changeData}) => <App data={data} changeData={changeData} />}
+        {(data) => <App {...data} />}
     </Consumer>
 </Data>;

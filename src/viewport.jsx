@@ -33,7 +33,7 @@ const Container = styled(InlineBlock)`
         font-size: 10px;
         border: 1px dashed #b9b9b9;
         border-bottom: unset;
-        width: ${(props) => props.width - 2}px;
+        width: ${(props) => props.width}px;
         height: 8px;
     }
 `;
@@ -60,7 +60,7 @@ const Column = styled(InlineBlock)`
         font-size: 10px;
         border: 1px dashed #b9b9b9;
         border-bottom: unset;
-        width: ${(props) => props.width - 2}px;
+        width: ${(props) => props.width}px;
         height: 8px;
     }
 
@@ -88,7 +88,7 @@ const Gutter = styled(InlineBlock)`
         font-size: 10px;
         border: 1px dashed #b9b9b9;
         border-top: unset;
-        width: ${(props) => props.width - 2}px;
+        width: ${(props) => props.width}px;
         height: 8px;
     }
 
@@ -130,7 +130,7 @@ const Margin = styled(InlineBlock)`
         font-size: 10px;
         border: 1px dashed #b9b9b9;
         border-top: unset;
-        width: ${(props) => props.width - 2}px;
+        width: ${(props) => props.width}px;
         height: 8px;
     }
 `;
@@ -163,7 +163,7 @@ const BG = styled.span`
         font-size: 10px;
         border: 1px dashed #b9b9b9;
         border-top: unset;
-        width: ${(props) => props.width - 2}px;
+        width: ${(props) => props.width}px;
         height: 8px;
     }
 

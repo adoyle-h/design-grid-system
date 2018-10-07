@@ -3,8 +3,7 @@ import styled from 'react-emotion';
 
 const BG = styled.div``;
 
-const text = [
-];
+/* eslint-disable max-len */
 
 export default () => <BG>
     <ol>

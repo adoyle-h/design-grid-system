@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, {css} from 'react-emotion';
+import styled from 'react-emotion';
 import CONSTS from './const';
 
 const {marginColor, gutterColor, columnColor} = CONSTS;
