@@ -12,21 +12,21 @@ function convertPercent(num, point = 2) {
 
 function run({
     columnSize: colSize,
-    minEndpoint, maxEndpoint, basePx,
+    minBreakpoint, maxBreakpoint, basePx,
     marginInView,
 }) {
     const table = [];
 
     let colScale = 0;
-    let view = minEndpoint;
+    let view = minBreakpoint;
     // eslint-disable-next-line no-constant-condition
     while (true) {
         colScale++;
 
         const colWidth = basePx * colScale;
         const _colTol = colWidth * colSize;
-        if (_colTol < minEndpoint) continue;
-        if (_colTol >= maxEndpoint) break;
+        if (_colTol < minBreakpoint) continue;
+        if (_colTol >= maxBreakpoint) break;
 
         let gutterScale = 0;
         let container;
@@ -40,32 +40,32 @@ function run({
             view = container / (1 - 2 * marginInView);
             const margin = view * marginInView;
 
-            if (view < minEndpoint) continue;
-            if (view > maxEndpoint) break;
+            if (view < minBreakpoint) continue;
+            if (view > maxBreakpoint) break;
 
             table.push({
                 colScale, gutterScale,
                 container,
                 colWidth,
                 gutterWidth,
-                margin: convertPercent(margin),
-                view: convertPercent(view),
+                margin,
+                view,
                 gutterRelCol: convertPercent(gutterWidth / colWidth),
                 marginInView: convertPercent(100 * margin / view),
                 contentInView: convertPercent(100 * container / view),
             });
-        } while (container < maxEndpoint);
+        } while (container < maxBreakpoint);
     }
 
     return table;
 }
 
-const genEndpointSpans = (endpoints) => {
-    const keys = Object.keys(endpoints);
+const genBreakpointSpans = (breakpoints) => {
+    const keys = Object.keys(breakpoints);
     const list = [];
 
     keys.forEach((key) => {
-        list.push({key, start: endpoints[key]});
+        list.push({key, start: breakpoints[key]});
     });
     list.sort((a, b) => {
         return a.start - b.start;
@@ -80,17 +80,17 @@ const genEndpointSpans = (endpoints) => {
     return spans;
 };
 
-export default (basePx, columnSize, marginInView, endpoints) => {
+export default (basePx, columnSize, marginInView, breakpoints) => {
     const list = [];
-    const spans = genEndpointSpans(endpoints);
+    const spans = genBreakpointSpans(breakpoints);
     debug('spans=%O', spans);
 
-    spans.forEach(([minEndpoint, maxEndpoint, epTitle]) => {
+    spans.forEach(([minBreakpoint, maxBreakpoint, epTitle]) => {
         const l = run({
-            columnSize, minEndpoint, maxEndpoint, basePx,
+            columnSize, minBreakpoint, maxBreakpoint, basePx,
             marginInView,
         });
-        list.push([epTitle, minEndpoint, maxEndpoint, l]);
+        list.push([epTitle, minBreakpoint, maxBreakpoint, l]);
     });
 
     debug('list=%O', list);

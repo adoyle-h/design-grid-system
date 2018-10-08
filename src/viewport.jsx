@@ -1,27 +1,31 @@
-import React from 'react';
+import React, {Component} from 'react';
 import styled, {css} from 'react-emotion';
+import Resizable from 're-resizable';
 import CONSTS from './const';
 
 const {marginColor, gutterColor, columnColor} = CONSTS;
 
-const InlineBlock = styled.span`
+const printWidthLabel = ({width}) => (Number.isInteger(width) ? width : width.toFixed(2));
+
+const InlineBlock = styled.div`
     position: relative;
-    width: ${(props) => props.width}px;
-    display: inline-block;
+    flex: 1 1 ${(props) => 100 * props.width / props.view}%;
     height: 100%;
 `;
 
 const Container = styled(InlineBlock)`
+    display: flex;
+    flex-wrap: nowrap;
     white-space: nowrap;
 
     &::before {
-        content: '${(props) => props.width}';
+        content: '${printWidthLabel}';
         color: #797979;
         position: absolute;
         top: -56px;
         font-size: 10px;
         text-align: center;
-        width: ${(props) => props.width}px;
+        width: 100%;
     }
 
     &::after {
@@ -33,7 +37,7 @@ const Container = styled(InlineBlock)`
         font-size: 10px;
         border: 1px dashed #b9b9b9;
         border-bottom: unset;
-        width: ${(props) => props.width}px;
+        width: 100%;
         height: 8px;
     }
 `;
@@ -42,13 +46,13 @@ const Column = styled(InlineBlock)`
     background: ${columnColor};
 
     &::before {
-        content: '${(props) => props.width}';
+        content: '${printWidthLabel}';
         color: ${columnColor};
         position: absolute;
         top: -28px;
         font-size: 10px;
         text-align: center;
-        width: ${(props) => props.width}px;
+        width: 100%;
     }
 
     &::after {
@@ -60,7 +64,7 @@ const Column = styled(InlineBlock)`
         font-size: 10px;
         border: 1px dashed #b9b9b9;
         border-bottom: unset;
-        width: ${(props) => props.width}px;
+        width: 100%;
         height: 8px;
     }
 
@@ -70,13 +74,13 @@ const Gutter = styled(InlineBlock)`
     background: ${gutterColor};
 
     &::before {
-        content: '${(props) => props.width}';
+        content: '${printWidthLabel}';
         color: ${gutterColor};
         position: absolute;
         bottom: -26px;
         font-size: 10px;
         text-align: center;
-        width: ${(props) => props.width}px;
+        width: 100%;
     }
 
     &::after {
@@ -88,37 +92,23 @@ const Gutter = styled(InlineBlock)`
         font-size: 10px;
         border: 1px dashed #b9b9b9;
         border-top: unset;
-        width: ${(props) => props.width}px;
+        width: 100%;
         height: 8px;
     }
 
-`;
-
-const ViewportContainer = styled.div`
-    margin: 0 auto;
-    padding: 60px 40px;
-
-    &:hover {
-        background: #f5f8ff;
-    }
-`;
-
-const ViewportC = styled.div`
-    margin: 0 auto;
-    width: ${(props) => props.width}px;
 `;
 
 const Margin = styled(InlineBlock)`
     background: ${marginColor};
 
     &::before {
-        content: '${(props) => props.width}';
+        content: '${printWidthLabel}';
         color: ${marginColor};
         position: absolute;
         bottom: -26px;
         font-size: 10px;
         text-align: center;
-        width: ${(props) => props.width}px;
+        width: 100%;
     }
 
     &::after {
@@ -130,28 +120,29 @@ const Margin = styled(InlineBlock)`
         font-size: 10px;
         border: 1px dashed #b9b9b9;
         border-top: unset;
-        width: ${(props) => props.width}px;
+        width: 100%;
         height: 8px;
     }
 `;
 
-const _dBG = (props) => css`
-    height: ${props.height || 200}px;
-    padding: 0 ${props.margin || 0}px;
-`;
-
-const BG = styled.span`
-    display: inline-block;
+const BG = styled.div`
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100%;
     position: relative;
 
+    ${(props) => css`
+        padding: 0 ${props.margin || 0}px;
+    `}
+
     &::before {
-        content: '${(props) => props.width}';
+        content: '${(props) => props.view.toFixed(2)}';
         color: #797979;
         position: absolute;
         bottom: -56px;
         font-size: 10px;
         text-align: center;
-        width: ${(props) => props.width}px;
+        width: 100%;
     }
 
     &::after {
@@ -163,38 +154,64 @@ const BG = styled.span`
         font-size: 10px;
         border: 1px dashed #b9b9b9;
         border-top: unset;
-        width: ${(props) => props.width}px;
+        width: 100%;
         height: 8px;
     }
-
-    ${_dBG}
 `;
 
-const Viewport = ({
-    view, container, colWidth, gutterWidth, margin, colSize,
-}) => {
-    const list = [];
-    for (let i = 0; i < colSize; i++) {
-        const gutter = <Gutter key={`gutter-${i}`} width={gutterWidth} />;
-        const col = <Column key={`column-${i}`} width={colWidth} />;
-        list.push(col);
-        if (i + 1 < colSize) {
-            list.push(gutter);
-        }
-    }
+class Viewport extends Component {
+    state = {
+        // view, container, colWidth, gutterWidth, margin, colSize,
+        ...this.props.data,
+        width: this.props.data.view,
+        height: 200,
+    };
 
-    return <ViewportContainer>
-        <ViewportC width={view}>
-            <BG width={view}>
-                <Margin width={margin} />
-                <Container width={container}>
+    render() {
+        const {
+            view, container, colWidth, gutterWidth, margin, colSize, width, height,
+        } = this.state;
+
+        const list = [];
+        for (let i = 0; i < colSize; i++) {
+            const gutter = <Gutter key={`gutter-${i}`} width={gutterWidth} view={container} />;
+            const col = <Column key={`column-${i}`} width={colWidth} view={container} />;
+            list.push(col);
+            if (i + 1 < colSize) {
+                list.push(gutter);
+            }
+        }
+
+        return <Resizable
+            size={{width, height}}
+            onResizeStop={(_e, _direction, _ref, d) => {
+                this.setState({
+                    width: this.state.width + d.width,
+                    height: this.state.height + d.height,
+                });
+            }}
+        >
+            <BG view={width} >
+                <Margin width={margin} view={view} />
+                <Container width={container} view={view}>
                     {list}
                 </Container>
-                <Margin width={margin} />
+                <Margin width={margin} view={view} />
             </BG>
-        </ViewportC>
-    </ViewportContainer>;
-};
+        </Resizable>;
+    }
+}
+
+const ViewportContainer = styled.div`
+    margin: 0 auto;
+    padding: 60px 40px;
+
+    &:hover {
+        background: #f5f8ff;
+    }
+`;
 
 export {ViewportContainer};
-export default Viewport;
+export default (props) => <ViewportContainer>
+    <Viewport data={props} />
+</ViewportContainer>;

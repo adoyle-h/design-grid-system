@@ -16,7 +16,7 @@ export default () => <BG>
     <p>
         This is a tool to preview grid system for design.
         <br />
-        It will calculate based your Column Size, Base Unit, Margin/Viewport Value and Endpoints, and generate a set of solutions for different endpoints.
+        It will calculate based your Column Size, Base Unit, Margin/Viewport Value and Breakpoints, and generate a set of solutions for different breakpoints.
     </p>
 
     <p>

@@ -18,7 +18,7 @@ class UserData extends Component {
             basePx: null,
             // % or px
             margin: null,
-            endpoints: {},
+            breakpoints: {},
 
             // Optional
             // gutterWidth: 12,
@@ -36,20 +36,20 @@ class UserData extends Component {
         state.margin = Number.parseFloat(params.get('margin'));
         if (isNaN(state.margin)) state.margin = 0.04;
 
-        const endpointsStr = params.get('endpoints');
-        if (endpointsStr) {
-            const {endpoints} = state;
-            const arr = endpointsStr.split(',');
+        const breakpointsStr = params.get('breakpoints');
+        if (breakpointsStr) {
+            const {breakpoints} = state;
+            const arr = breakpointsStr.split(',');
             arr.forEach((item) => {
                 if (!item) return;
                 const [key, val] = item.split('__');
                 const value = parseInt(val);
                 if (!isNaN(value)) {
-                    endpoints[key] = value;
+                    breakpoints[key] = value;
                 }
             });
         } else {
-            state.endpoints = {
+            state.breakpoints = {
                 xs: 0,
                 // Small screen / phone
                 s: 528,
@@ -73,7 +73,7 @@ class UserData extends Component {
         params.append('columnSize', state.column.size);
         params.append('basePx', state.basePx);
         params.append('margin', state.margin);
-        params.append('endpoints', reduce(state.endpoints, (arr, val, key) => {
+        params.append('breakpoints', reduce(state.breakpoints, (arr, val, key) => {
             arr.push(`${key}__${val}`);
             return arr;
         }, []).join(','));

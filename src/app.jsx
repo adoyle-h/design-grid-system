@@ -78,7 +78,7 @@ class App extends Component {
 
     render() {
         const {data, changeData} = this.props;
-        const list = grid(data.basePx, data.column.size, data.margin, data.endpoints);
+        const list = grid(data.basePx, data.column.size, data.margin, data.breakpoints);
 
         const categories = list.map(([epTitle, min, max, l]) =>
             this.renderCateory(`${epTitle} (${min}, ${max}]`, l));

@@ -1,22 +1,22 @@
 import React from 'react';
 import * as dg from 'dis-gui';
 
-const addEndpoint = (_changeData) => (_ep) => {
-    // changeData(`endpoints.${ep}`);
+const addBreakpoint = (_changeData) => (_ep) => {
+    // changeData(`breakpoints.${ep}`);
 };
 
-const renderEndpoints = (endpoints, changeData) => {
-    const keys = Object.keys(endpoints);
+const renderBreakpoints = (breakpoints, changeData) => {
+    const keys = Object.keys(breakpoints);
     return keys.map((key) => <dg.Number
         key={key}
         label={key}
-        value={endpoints[key]}
-        onChange={(val) => changeData(`endpoints.${key}`, val)}
+        value={breakpoints[key]}
+        onChange={(val) => changeData(`breakpoints.${key}`, val)}
     />);
 };
 
 export default ({
-    column, basePx, margin, endpoints, changeData,
+    column, basePx, margin, breakpoints, changeData,
 }) => <dg.GUI expanded={false} >
     <dg.Text label="Parameters" />
     <dg.Number label="Column Size" value={column.size} onChange={(val) => changeData('column.size', val)} />
@@ -27,12 +27,12 @@ export default ({
         onChange={(val) => changeData('basePx', val)}
     />
     <dg.Number label="Margin/Viewport" value={margin} onChange={(val) => changeData('margin', val)} />
-    <dg.Folder label="Endpoints" expanded >
-        {renderEndpoints(endpoints, changeData)}
+    <dg.Folder label="Breakpoints" expanded >
+        {renderBreakpoints(breakpoints, changeData)}
         {/*
         <dg.Button
-            label="Add Endpoint"
-            onClick={addEndpoint(changeData)}
+            label="Add Breakpoint"
+            onClick={addBreakpoint(changeData)}
         />
         */}
     </dg.Folder>

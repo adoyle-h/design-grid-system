@@ -54,13 +54,13 @@ class Category extends Component {
         const {hide} = this.state;
         const size = list.length;
 
-        let button, inner, hideClick;
+        let _button, inner, hideClick;
         if (hide) {
             hideClick = () => this.setState({hide: false});
-            button = <HideButton onClick={hideClick}>[show]</HideButton>;
+            _button = <HideButton onClick={hideClick}>[show]</HideButton>;
         } else {
             hideClick = () => this.setState({hide: true});
-            button = <HideButton onClick={hideClick}>[hide]</HideButton>;
+            _button = <HideButton onClick={hideClick}>[hide]</HideButton>;
 
             inner = <CategoryInnerBG>
                 {list.map((item) => <Viewport
@@ -69,7 +69,7 @@ class Category extends Component {
                     {...item}
                 />)}
                 {!size && <ViewportContainer>Not found appropriate solution</ViewportContainer>}
-            </CategoryInnerBG>
+            </CategoryInnerBG>;
         }
 
         return <CategoryBG>
