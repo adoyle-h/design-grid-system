@@ -34,7 +34,7 @@
     "debug": "^4.0.1",
     "dis-gui": "^2.1.0",
     "emotion": "^9.2.12",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.20",
     "normalize.css": "^8.0.0",
     "re-resizable": "^4.9.0",
     "react": "^16.5.2",
