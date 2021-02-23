@@ -34,13 +34,13 @@
     "debug": "^4.0.1",
     "dis-gui": "^2.1.0",
     "emotion": "^9.2.12",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "normalize.css": "^8.0.0",
     "re-resizable": "^4.9.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-emotion": "^9.2.12",
-    "react-scripts": "2.0.4"
+    "react-scripts": "4.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
